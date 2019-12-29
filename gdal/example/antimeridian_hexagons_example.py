@@ -11,14 +11,9 @@ def main():
     """
     datadir = 'C:/Dev/example/'
   
-    # read input file and convert to WGS84 / EPSG: , with bounding boxes (avoids issues at anti-meridian)
     gdal.UseExceptions()
-    inputFileName = datadir + 'example.geojson'
-    srcDS = gdal.OpenEx(inputFileName)
-    outputFileName = datadir + 'example_output.geojson'
-    ds = gdal.VectorTranslate(outputFileName, srcDS=srcDS, format = 'GeoJSON', layerCreationOptions = ['RFC7946=YES', 'WRITE_BBOX=YES'])
-    # Dereference and close dataset.
-    del ds
+    srcDS = gdal.OpenEx(datadir + 'input.geojson')
+    ds = gdal.VectorTranslate(datadir + 'output.geojson', srcDS=srcDS, format = 'GeoJSON', layerCreationOptions = ['RFC7946=YES', 'WRITE_BBOX=YES'])
     
     exit()
 
